@@ -45,7 +45,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <efivar.h>
-#include <efiboot.h>
+#include "efiboot.h"
 #include <inttypes.h>
 
 #include "list.h"
@@ -111,8 +111,8 @@ read_vars(char **namelist,
 			memset(entry, 0, sizeof(var_entry_t));
 
 			rc = efi_get_variable(EFI_GLOBAL_GUID, namelist[i],
-					       &entry->data, &entry->data_size,
-					       &entry->attributes);
+			    &entry->data, &entry->data_size,
+			    &entry->attributes);
 			if (rc < 0) {
 				warning("Skipping unreadable variable \"%s\"",
 					namelist[i]);

@@ -7,12 +7,12 @@ include $(TOPDIR)/Make.defaults
 
 SUBDIR_CFLAGS = -I$(SRCDIR)/include
 
-BINTARGETS=efibootmgr efibootdump
+BINTARGETS=efibootmgr
 TARGETS=$(BINTARGETS)
 
 all : deps $(TARGETS)
 
-EFIBOOTMGR_SOURCES = efibootmgr.c efi.c unparse_path.c
+EFIBOOTMGR_SOURCES = efibootmgr.c efi.c unparse_path.c loadopt.c dp.c dp-acpi.c dp-hw.c dp-media.c dp-message.c
 EFICONMAN_SOURCES = eficonman.c
 EFIBOOTDUMP_SOURCES = efibootdump.c unparse_path.c
 EFIBOOTNEXT_SOURCES = efibootnext.c

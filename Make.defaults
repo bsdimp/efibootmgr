@@ -32,13 +32,12 @@ clang_cflags =
 gcc_cflags =
 cflags	= $(CFLAGS) $(SUBDIR_CFLAGS) \
 	-Werror -Wall -Wextra -Wsign-compare -Wstrict-aliasing \
-	-std=gnu11 -fPIC \
+	-std=gnu11 -fshort-wchar -fPIC \
 	-D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -DLOCALEDIR=\"$(localedir)\" \
 	-DEFIBOOTMGR_VERSION="\"$(VERSION)\"" \
 	-DDEFAULT_LOADER=\"\\\\EFI\\\\$(EFIDIR)\\\\$(EFI_LOADER)\" \
 	$(if $(findstring clang,$(CC)),$(clang_cflags),) \
-	$(if $(findstring gcc,$(CC)),$(gcc_cflags),) \
-	$(call pkg-config-cflags)
+	$(if $(findstring gcc,$(CC)),$(gcc_cflags),)
 clang_ccldflags =
 gcc_ccldflags = -fno-merge-constants \
 	-Wl,--fatal-warnings,--no-allow-shlib-undefined \
@@ -46,7 +45,8 @@ gcc_ccldflags = -fno-merge-constants \
 ccldflags = $(cflags) $(CCLDFLAGS) $(LDFLAGS) \
 	$(if $(findstring clang,$(CCLD)),$(clang_ccldflags),) \
 	$(if $(findstring gcc,$(CCLD)),$(gcc_ccldflags),) \
-	$(call pkg-config-ccldflags)
+	$(call pkg-config-ccldflags) \
+	-lefivar
 CPPFLAGS?=
 SOFLAGS=-shared
 LDLIBS=$(foreach lib,$(LIBS),-l$(lib)) $(call pkg-config-ldlibs)

@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <efiboot.h>
+#include "efiboot.h"
 #include <efivar.h>
 #include <errno.h>
 #include <stdint.h>
@@ -32,6 +32,7 @@
 #include <limits.h>
 #include <unistd.h>
 #include <dirent.h>
+#if 0
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <sys/ioctl.h>
@@ -40,6 +41,7 @@
 #include <net/if.h>
 #include <asm/types.h>
 #include <linux/ethtool.h>
+#endif
 #include "efi.h"
 #include "efibootmgr.h"
 #include "list.h"
@@ -270,6 +272,7 @@ err_needed:
 }
 #endif
 
+#if 0
 static int
 get_edd_version(void)
 {
@@ -303,7 +306,6 @@ get_edd_version(void)
 		return 3;
 	return 1;
 }
-
 
 /**
  * make_linux_load_option()
@@ -414,6 +416,14 @@ make_linux_load_option(uint8_t **data, size_t *data_size,
 
 	return needed;
 }
+#else
+ssize_t
+make_linux_load_option(uint8_t **data __unused, size_t *data_size __unused,
+    uint8_t *optional_data __unused, size_t optional_data_size __unused)
+{
+	return -1;
+}
+#endif
 
 static ssize_t
 read_stdin(uint8_t *data_out, ssize_t data_size_out)

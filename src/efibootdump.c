@@ -9,13 +9,11 @@
  */
 
 #include <ctype.h>
-#include <efiboot.h>
+#include "efiboot.h"
 #include <efivar.h>
 #include <err.h>
 #include <inttypes.h>
-#include <libintl.h>
 #include <locale.h>
-#include <popt.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
