@@ -124,8 +124,7 @@ typedef struct {
 } efidp_acpi_hid_ex;
 extern ssize_t efidp_make_acpi_hid_ex(uint8_t *buf, ssize_t size, uint32_t hid,
 				      uint32_t uid, uint32_t cid, char *hidstr,
-				      char *uidstr, char *cidstr)
-	__attribute__((__nonnull__ (6,7,8)));
+				      char *uidstr, char *cidstr);
 
 #define EFIDP_PNP_EISA_ID_CONST		0x41d0
 #define EFIDP_EISA_ID(_Name, _Num)	((uint32_t)((_Name) | (_Num) << 16))
@@ -706,7 +705,6 @@ extern int efidp_append_instance(const_efidp dp, const_efidp dpi, efidp *out);
 #endif
 
 static inline int16_t
-__attribute__((__nonnull__(1)))
 __attribute__((__pure__))
 __attribute__((__unused__))
 efidp_type(const_efidp dp)
@@ -719,7 +717,6 @@ efidp_type(const_efidp dp)
 }
 
 static inline int16_t
-__attribute__((__nonnull__(1)))
 __attribute__((__pure__))
 __attribute__((__unused__))
 efidp_subtype(const_efidp dp)
@@ -732,7 +729,6 @@ efidp_subtype(const_efidp dp)
 }
 
 static inline ssize_t
-__attribute__((__nonnull__(1)))
 __attribute__((__pure__))
 __attribute__((__unused__))
 __attribute__((__warn_unused_result__))
@@ -746,7 +742,6 @@ efidp_node_size(const_efidp dn)
 }
 
 static inline int
-__attribute__((__nonnull__(1, 2)))
 __attribute__((__pure__))
 __attribute__((__unused__))
 __attribute__((__warn_unused_result__))
@@ -768,7 +763,6 @@ efidp_next_node(const_efidp in, const_efidp *out)
 }
 
 static inline int
-__attribute__((__nonnull__(1, 2)))
 __attribute__((__pure__))
 __attribute__((__unused__))
 __attribute__((__warn_unused_result__))
@@ -792,7 +786,6 @@ efidp_next_instance(const_efidp in, const_efidp *out)
 }
 
 static inline int
-__attribute__((__nonnull__(1)))
 __attribute__((__pure__))
 __attribute__((__unused__))
 __attribute__((__warn_unused_result__))
@@ -821,7 +814,6 @@ efidp_is_multiinstance(const_efidp dn)
 }
 
 static inline int
-__attribute__((__nonnull__(1, 2)))
 __attribute__((__pure__))
 __attribute__((__unused__))
 __attribute__((__warn_unused_result__))
@@ -845,7 +837,6 @@ efidp_get_next_end(const_efidp in, const_efidp *out)
 }
 
 static inline ssize_t
-__attribute__((__nonnull__(1)))
 __attribute__((__pure__))
 __attribute__((__unused__))
 __attribute__((__warn_unused_result__))
@@ -886,7 +877,6 @@ efidp_size(const_efidp dp)
 }
 
 static inline ssize_t
-__attribute__((__nonnull__(1)))
 __attribute__((__pure__))
 __attribute__((__unused__))
 __attribute__((__warn_unused_result__))
@@ -915,9 +905,7 @@ efidp_instance_size(const_efidp dpi)
 }
 
 static inline int
-__attribute__((__nonnull__(1)))
 __attribute__((__unused__))
-__attribute__((__nonnull__ (1)))
 efidp_is_valid(const_efidp dp, ssize_t limit)
 {
 	efidp_header *hdr = (efidp_header *)dp;
