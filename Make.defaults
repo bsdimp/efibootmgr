@@ -9,12 +9,6 @@ localedir ?= $(datadir)/locale/
 PCDIR	?= $(libdir)/pkgconfig
 DESTDIR	?=
 
-EFIDIR	?= $(shell x=$$(which --skip-alias --skip-functions git 2>/dev/null) ; [ -n "$$x" ] && git config --get efibootmgr.efidir)
-ifeq ($(EFIDIR),)
-        EFIDIR_ERROR = $(error EFIDIR or .gitconfig efibootmgr.efidir must be set to this distro's reserved EFI System Partition subdirectory name)
-endif
-EFI_LOADER := grub.efi
-
 INSTALL ?= install
 CROSS_COMPILE	?=
 PKG_CONFIG = $(CROSS_COMPILE)pkg-config
@@ -25,6 +19,7 @@ AR	:= $(CROSS_COMPILE)gcc-ar
 NM	:= $(CROSS_COMPILE)gcc-nm
 RANLIB	:= $(CROSS_COMPILE)gcc-ranlib
 
+EFI_LOADER=bootx86.efi
 PKGS	=
 
 SUBDIR_CFLAGS ?=
@@ -35,7 +30,7 @@ cflags	= $(CFLAGS) $(SUBDIR_CFLAGS) \
 	-std=gnu11 -fshort-wchar -fPIC \
 	-D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -DLOCALEDIR=\"$(localedir)\" \
 	-DEFIBOOTMGR_VERSION="\"$(VERSION)\"" \
-	-DDEFAULT_LOADER=\"\\\\EFI\\\\$(EFIDIR)\\\\$(EFI_LOADER)\" \
+	-DDEFAULT_LOADER=\"\\\\EFI\\\\boot\\\\$(EFI_LOADER)\" \
 	$(if $(findstring clang,$(CC)),$(clang_cflags),) \
 	$(if $(findstring gcc,$(CC)),$(gcc_cflags),)
 clang_ccldflags =
@@ -52,4 +47,4 @@ SOFLAGS=-shared
 LDLIBS=$(foreach lib,$(LIBS),-l$(lib)) $(call pkg-config-ldlibs)
 
 .PHONY: check_efidir_error
-check_efidir_error : ; $(EFIDIR_ERROR) $(info Building with EFIDIR as $(EFIDIR))
+check_efidir_error : 
